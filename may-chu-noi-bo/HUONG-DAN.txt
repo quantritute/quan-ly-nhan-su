@@ -1,0 +1,97 @@
+PHẦN MỀM QUẢN LÝ NHÂN SỰ TOÀN DIỆN – BẢN CÀI TRÊN MÁY CHỦ NỘI BỘ (WINDOWS)
+Quản trị tử tế · quantritute.com · Mã nguồn mở AGPL-3.0
+
+Bản này chạy đúng mã nguồn của bản đầy đủ (bản dùng Cloudflare), nhưng toàn bộ máy chủ
+và cơ sở dữ liệu nằm trên máy chủ Windows của đơn vị. Phần mềm không gửi dữ liệu nhân sự ra ngoài.
+(Chỉ khi anh/chị bật gửi báo cáo qua email thì nội dung báo cáo mới được gửi qua dịch vụ email đã cấu hình.)
+
+======================================================================
+1. YÊU CẦU
+======================================================================
+- Windows 10/11 64-bit hoặc Windows Server 2016 trở lên, RAM trống từ 1 GB, ổ đĩa trống từ 1 GB.
+- Tài khoản quản trị (Administrator) của máy chủ để cài.
+- Máy chủ nên đặt IP cố định trong mạng LAN (vd 192.168.1.10) để nhân viên luôn vào đúng địa chỉ.
+
+======================================================================
+2. CÀI ĐẶT
+======================================================================
+1) Bấm đúp file cài đặt. Nếu Windows báo "Windows đã bảo vệ PC của bạn":
+   bấm "Thông tin bổ sung" → "Vẫn chạy" (bộ cài chưa có chữ ký số trả phí).
+2) Chọn cổng truy cập (mặc định 8080) → Cài đặt.
+3) Bộ cài tự làm:
+   - cài phần mềm thành DỊCH VỤ WINDOWS tên "QuanLyNhanSu" (tự chạy khi bật máy, tự chạy lại nếu lỗi);
+   - mở tường lửa cho cổng đã chọn;
+   - tạo MÃ CÀI ĐẶT ngẫu nhiên và mở file THONG-TIN-TRUY-CAP.txt.
+4) Mở trình duyệt trên máy chủ: http://localhost:8080/quan-ly
+   → nhập Mã cài đặt (trong THONG-TIN-TRUY-CAP.txt), tên đơn vị, mật khẩu quản lý.
+   Mã cài đặt chỉ dùng một lần. Không chia sẻ mã này.
+
+======================================================================
+3. ĐỊA CHỈ DÙNG HẰNG NGÀY  (thay 192.168.1.10 bằng IP máy chủ)
+======================================================================
+- Ứng dụng nhân viên (chấm công, gửi đơn):  http://192.168.1.10:8080/
+- Trang quản lý chấm công:                 http://192.168.1.10:8080/quan-ly
+- Phần mềm quản lý nhân sự (quản trị):      http://192.168.1.10:8080/quan-tri
+Xem lại địa chỉ bất cứ lúc nào: Start → "Quản lý nhân sự (máy chủ)" → "Thông tin truy cập".
+
+======================================================================
+4. NHÂN VIÊN LÀM TỪ XA: VPN HOẶC TÊN MIỀN
+======================================================================
+- Qua VPN: dùng địa chỉ LAN như trên, không cần cấu hình thêm.
+- Qua tên miền: nên đặt phần mềm sau một máy chủ HTTPS có sẵn (IIS, nginx, Cloudflare Tunnel…)
+  chuyển tiếp về http://<IP máy chủ>:8080, rồi sửa cấu hình (mục 6) thành  "tin_proxy": true
+  để phần mềm lấy đúng IP thật của người dùng.
+- Hoặc để chính phần mềm chạy HTTPS bằng chứng chỉ của tên miền (mục 6, khóa "https").
+
+LƯU Ý VỀ HTTPS: trình duyệt chỉ cho các tính năng sau chạy trên địa chỉ HTTPS (hoặc localhost):
+  thông báo đẩy về điện thoại, cài ứng dụng ra màn hình chính, quét mã QR bằng camera ngay trong ứng dụng.
+  Trên địa chỉ http://IP-nội-bộ các phần còn lại (đăng nhập, chấm công, gửi đơn, quản trị) vẫn chạy bình thường;
+  quét QR thì dùng ứng dụng Camera của điện thoại.
+
+CHẤM CÔNG THEO MẠNG VĂN PHÒNG: trong /quan-ly → Thiết lập mạng Wi-Fi, khai báo IP mà máy chủ nhìn thấy.
+  Trong mạng LAN đó là IP nội bộ của điện thoại (vd 192.168.1.x), trang /quan-ly hiện sẵn "IP máy này".
+
+======================================================================
+5. SAO LƯU – KHÔI PHỤC  (rất quan trọng: dữ liệu chỉ nằm trên máy chủ này)
+======================================================================
+- Tự động sao lưu mỗi ngày lúc 23:30, giữ 30 bản gần nhất, tại:
+      C:\ProgramData\QuanLyNhanSu\sao-luu\
+- Sao lưu ngay: Start → "Quản lý nhân sự (máy chủ)" → "Sao lưu ngay" (máy chủ vẫn chạy bình thường).
+- NÊN chép định kỳ thư mục sao-luu sang ổ cứng ngoài / NAS / máy khác. Hỏng ổ cứng máy chủ mà không có
+  bản chép ra ngoài thì không lấy lại được dữ liệu.
+- Khôi phục: "Khôi phục dữ liệu" → gõ tên thư mục sao lưu → gõ CO. Dữ liệu đang có được tự sao lưu lại trước khi thay.
+- Chuyển sang máy chủ mới: cài phần mềm trên máy mới → chép thư mục sao lưu sang
+  C:\ProgramData\QuanLyNhanSu\sao-luu\ của máy mới → "Khôi phục dữ liệu".
+
+Thư mục dữ liệu C:\ProgramData\QuanLyNhanSu chỉ tài khoản Administrators và hệ thống (SYSTEM) mở được.
+
+======================================================================
+6. CẤU HÌNH  (Start → "Sửa cấu hình", sửa xong lưu lại, công cụ tự khởi động lại)
+======================================================================
+File C:\ProgramData\QuanLyNhanSu\cau-hinh.json:
+  "cong": 8080                       cổng truy cập
+  "tin_proxy": false                 true nếu đặt sau IIS / nginx / Cloudflare Tunnel (chỉ bật khi thật sự có proxy)
+  "sao_luu": {"gio": "23:30", "giu": 30}   giờ sao lưu tự động, số bản giữ lại
+  "https": null                      để phần mềm tự chạy HTTPS, thay null bằng một trong hai dạng:
+        {"pfx": "C:\\chung-chi\\ten-mien.pfx", "mat_khau": "..."}
+        {"key": "C:\\chung-chi\\privkey.pem", "cert": "C:\\chung-chi\\fullchain.pem"}
+  "ma_cai_dat": "..."                mã dùng một lần khi tạo tài khoản quản trị đầu tiên
+JSON viết sai thì phần mềm dùng cấu hình mặc định và ghi lỗi vào nhật ký (Start → "Xem nhật ký").
+
+======================================================================
+7. CẬP NHẬT BẢN MỚI
+======================================================================
+Tải bộ cài bản mới → chạy như lần đầu. Bộ cài tự dừng dịch vụ, thay chương trình, GIỮ NGUYÊN dữ liệu và cấu hình,
+rồi chạy lại. Nên bấm "Sao lưu ngay" trước khi cập nhật.
+
+======================================================================
+8. GỠ CÀI ĐẶT
+======================================================================
+Settings → Apps → "Phần mềm quản lý nhân sự (máy chủ nội bộ)" → Gỡ. Bộ gỡ hỏi có xóa dữ liệu không;
+mặc định GIỮ LẠI thư mục C:\ProgramData\QuanLyNhanSu.
+
+======================================================================
+9. KHI CẦN HỖ TRỢ
+======================================================================
+Gửi kèm file nhật ký C:\ProgramData\QuanLyNhanSu\nhat-ky\may-chu.log (chỉ ghi thời điểm chạy, lỗi; anh/chị xem lại trước khi gửi).
+Liên hệ: quantritute.com

@@ -1,0 +1,21 @@
+<service>
+  <id>QuanLyNhanSu</id>
+  <name>Quan ly nhan su - may chu noi bo (Quan tri tu te)</name>
+  <description>Phần mềm quản lý nhân sự toàn diện – máy chủ nội bộ. Dữ liệu: %ProgramData%\QuanLyNhanSu</description>
+  <executable>%BASE%\node.exe</executable>
+  <arguments>"%BASE%\may-chu.mjs"</arguments>
+  <workingdirectory>%BASE%</workingdirectory>
+  <env name="NODE_NO_WARNINGS" value="1"/>
+  <startmode>Automatic</startmode>
+  <delayedAutoStart>true</delayedAutoStart>
+  <onfailure action="restart" delay="10 sec"/>
+  <onfailure action="restart" delay="30 sec"/>
+  <onfailure action="restart" delay="60 sec"/>
+  <resetfailure>1 hour</resetfailure>
+  <stoptimeout>20 sec</stoptimeout>
+  <logpath>%ProgramData%\QuanLyNhanSu\nhat-ky</logpath>
+  <log mode="roll-by-size">
+    <sizeThreshold>5120</sizeThreshold>
+    <keepFiles>5</keepFiles>
+  </log>
+</service>

@@ -103,6 +103,10 @@ Giới hạn và giá các gói xem tại trang giá của Cloudflare (Workers, 
 
 ---
 
+## Bản cài máy chủ nội bộ (Windows)
+
+Dành cho đơn vị muốn dữ liệu nằm tại chỗ: bộ cài `.exe` đưa **bản đầy đủ** lên một máy chủ Windows của đơn vị (chạy thành dịch vụ Windows, cơ sở dữ liệu SQLite tại `C:\ProgramData\QuanLyNhanSu`, nhân viên dùng qua LAN, VPN hoặc tên miền riêng). Tải bộ cài ở mục **Releases**; hướng dẫn cài đặt, thiết lập, sao lưu: https://quantritute.com/quan-ly-nhan-su/may-chu-noi-bo/ – mã nguồn bộ cài ở thư mục [`may-chu-noi-bo/`](may-chu-noi-bo/).
+
 ## Giấy phép, thương hiệu, trách nhiệm
 - Mã nguồn theo **GNU AGPL-3.0** ([LICENSE](LICENSE)): được dùng, sửa, chia sẻ, kể cả cho mục đích thương mại; ai sửa rồi phân phối hoặc cho người khác dùng qua mạng phải công khai mã đã sửa theo cùng giấy phép và giữ ghi chú tác giả.
 - Tên "Quản trị tử tế", logo, nhân vật Đốm **không** thuộc giấy phép mã nguồn – xem [NOTICE.md](NOTICE.md). Đơn vị dùng phần mềm thay bằng thương hiệu của mình ở **Cài đặt → Thương hiệu**.
