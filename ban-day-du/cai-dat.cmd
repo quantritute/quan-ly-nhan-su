@@ -24,9 +24,13 @@ echo.
 echo 5/5  Dat MA CAI DAT (tu 8 ky tu, tu dat, ghi lai - chi dung 1 lan de tao tai khoan quan tri):
 call npx wrangler secret put MA_CAI_DAT || goto :err
 echo.
+node cap-nhat.mjs --loi-tat
+echo.
 echo XONG. Dia chi phan mem la dong "https://...workers.dev" o buoc 4.
 echo  - Mo  dia-chi/quan-ly  : nhap ma cai dat, ten cong ty, mat khau quan tri
 echo  - Mo  dia-chi/quan-tri : dung phan mem
+echo  - Cap nhat ban moi: bam dup bieu tuong "Cap nhat phan mem nhan su" ngoai man hinh
+echo  - GIU NGUYEN thu muc nay tren may, khong xoa (cap nhat chay tu day)
 pause
 exit /b 0
 :err

@@ -70,11 +70,14 @@ Chạy trên tài khoản Cloudflare **của chính đơn vị** (Worker + cơ s
 >
 > **Nhiều công ty dùng chung một máy chủ:** app nhân viên nhận diện người dùng bằng **Mã NV**, nên Mã NV phải khác nhau giữa các công ty (mỗi công ty một tiền tố, ví dụ `HD001`, `AC001`). Phần mềm báo khi có mã trùng và chưa cho cấp tài khoản app cho người trùng mã; đổi mã ở hồ sơ → **Sửa thông tin** (mọi dữ liệu đổi theo, mã PIN giữ nguyên).
 
-### Cách 2 – Tải về và cài bằng lệnh (Windows)
+### Cách 2 – Gói cài trên Windows (không cần tài khoản GitHub)
+Hướng dẫn có từng bước: [quantritute.com/quan-ly-nhan-su/huong-dan-cai-dat/#c2](https://quantritute.com/quan-ly-nhan-su/huong-dan-cai-dat/#c2).
 1. Cài [Node.js](https://nodejs.org) bản LTS.
-2. Tải kho này: nút **Code → Download ZIP** (hoặc trang *Releases*), giải nén.
-3. Mở thư mục **`ban-day-du`**, bấm đúp **`cai-dat.cmd`**: tự cài công cụ, mở trình duyệt đăng nhập Cloudflare, tạo cơ sở dữ liệu, đưa phần mềm lên, hỏi **MA_CAI_DAT**.
+2. Tải gói cài [quan-ly-nhan-su-ban-day-du.zip](https://quantritute.com/quan-ly-nhan-su/tai/quan-ly-nhan-su-ban-day-du.zip) (hoặc nút **Code → Download ZIP** của kho này, dùng thư mục `ban-day-du`), giải nén vào một thư mục cố định – **giữ thư mục này**, lần cập nhật sau chạy từ đây.
+3. Bấm đúp **`cai-dat.cmd`**: tự cài công cụ, mở trình duyệt đăng nhập Cloudflare, tạo cơ sở dữ liệu, đưa phần mềm lên, hỏi **MA_CAI_DAT**, tạo biểu tượng **“Cập nhật phần mềm nhân sự”** ngoài màn hình.
 4. Làm tiếp bước 5–6 của cách 1.
+
+> Nếu GitHub khóa tài khoản mới khi bấm nút Deploy (*Access to your account has been suspended*): không tạo thêm tài khoản GitHub trên cùng máy, cùng mạng – dùng cách 2.
 
 ### Gắn tên miền riêng
 Tên miền phải đang dùng DNS của Cloudflare. Cloudflare → Workers & Pages → chọn Worker → tab **Domains** → **+ Add Domain** → chọn tên miền → nhập subdomain, ví dụ `nhansu` → **Add domain**.
@@ -83,7 +86,8 @@ Tên miền phải đang dùng DNS của Cloudflare. Cloudflare → Workers & Pa
 Dữ liệu nằm trong cơ sở dữ liệu D1, tách khỏi mã phần mềm. Máy chủ tự nâng cấp cấu trúc dữ liệu (chỉ thêm bảng, thêm cột – không xóa) ở lần chạy đầu sau cập nhật. Trước khi cập nhật vẫn nên tải bản sao lưu.
 - **Cài bằng nút Deploy:** vào kho GitHub của đơn vị → tab **Actions → Cập nhật từ bản gốc → Run workflow**. Cloudflare tự đưa bản mới lên. Lần đầu nếu tab Actions báo đang tắt, bấm nút bật Actions rồi làm lại.
 - Không tự sửa mã trong kho của đơn vị: lần cập nhật sau sẽ ghi đè phần đã sửa.
-- **Cài bằng lệnh:** tải bản mới, chép đè thư mục `ban-day-du` (giữ nguyên thư mục cũ nếu đã sửa gì), bấm đúp **`cap-nhat.cmd`**.
+- **Cài bằng gói cài (cách 2):** trên máy đã cài, bấm đúp biểu tượng **“Cập nhật phần mềm nhân sự”** (hoặc `cap-nhat.cmd` trong thư mục cài). Tệp tự tải bản mới nhất từ quantritute.com (dự phòng: kho GitHub công khai, không cần tài khoản), giữ nguyên tên Worker và cơ sở dữ liệu trong `wrangler.jsonc`, lưu bản cũ ở `_ban-cu/`, rồi đưa lên Cloudflare. `cap-nhat.cmd lai` = đưa lại bản đang có mà không tải.
+- Phần mềm tự báo khi có bản mới (đọc `quantritute.com/quan-ly-nhan-su/phien-ban-moi.json`, tối đa 12 giờ/lần, không gửi dữ liệu của đơn vị); **Cài đặt → Kiểm tra bản mới** để kiểm tra ngay.
 
 ### Sao lưu
 - Trong phần mềm: **Cài đặt → Dữ liệu & sao lưu → Tải bản sao lưu**.
